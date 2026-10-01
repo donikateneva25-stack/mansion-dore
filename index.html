@@ -1,0 +1,145 @@
+<!DOCTYPE html><html lang="bg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Maison Dorée – Парфюмерия и козметика</title>
+<style>
+:root{--bg:#fff;--cream:#f7efe8;--brown:#b08968;--dark:#5a4332;--gold:#c9a24b;--line:#eadfd4;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box}html,body{margin:0}body{background:#fff;color:var(--dark);font-family:Georgia,'Times New Roman',serif}
+button{font-family:inherit;cursor:pointer}
+header{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:env(safe-area-inset-top,0px);z-index:10}
+.top{display:flex;align-items:center;justify-content:space-between;padding:14px 24px}
+.logo{font-size:26px;letter-spacing:3px;color:var(--gold);cursor:pointer;font-weight:bold}
+.cartbtn{background:var(--cream);border:1px solid var(--gold);color:var(--dark);padding:9px 16px;border-radius:24px;font-size:15px}
+.cartbtn b{background:var(--gold);color:#fff;border-radius:12px;padding:1px 8px;margin-left:6px}
+nav{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;background:var(--cream);padding:0 12px}
+.nv{position:relative}.nv>span{display:block;padding:14px 18px;cursor:pointer;font-size:15px;letter-spacing:1px;text-transform:uppercase}
+.nv:hover>span{color:var(--gold)}
+.dd{display:none;position:absolute;top:100%;left:0;min-width:200px;background:#fff;border:1px solid var(--line);border-top:2px solid var(--gold);box-shadow:0 8px 20px #0001}
+.nv:hover .dd,.nv.open .dd{display:block}
+.dd a{display:block;padding:11px 18px;cursor:pointer;font-size:15px}.dd a:hover{background:var(--cream);color:var(--gold)}
+.hero{background:linear-gradient(135deg,var(--cream),#e8d5c4);text-align:center;padding:70px 20px}
+.hero h1{font-size:40px;font-weight:normal;margin:0 0 10px;letter-spacing:2px}.hero p{color:var(--brown);margin:0 0 24px}
+.btn{background:var(--gold);color:#fff;border:0;padding:12px 28px;font-size:15px;letter-spacing:1px;border-radius:2px}
+.btn:hover{background:#b38d38}
+main{max-width:1100px;margin:0 auto;padding:30px 20px}
+h2{font-weight:normal;letter-spacing:2px;color:var(--dark);border-bottom:1px solid var(--gold);padding-bottom:10px}
+.cats{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:16px}
+.cat{background:var(--cream);padding:28px 12px;text-align:center;cursor:pointer;border:1px solid var(--line);font-size:17px}.cat:hover{border-color:var(--gold);color:var(--gold)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:20px}
+.card{border:1px solid var(--line);padding:14px;text-align:center;cursor:pointer;background:#fff}.card:hover{border-color:var(--gold);box-shadow:0 6px 18px #c9a24b30}
+.card svg{width:100%;height:190px;background:var(--cream)}
+.br{color:var(--brown);font-size:13px;letter-spacing:2px;text-transform:uppercase;margin-top:10px}
+.nm{margin:4px 0 8px;min-height:40px}.pr{color:var(--gold);font-size:20px;font-weight:bold}
+.ov{display:none;position:fixed;inset:0;background:#0006;z-index:50;align-items:center;justify-content:center;padding:16px}.ov.on{display:flex}
+.box{background:#fff;max-width:760px;width:100%;max-height:90%;overflow:auto;padding:24px;border-top:4px solid var(--gold);position:relative}
+.x{position:absolute;right:12px;top:8px;background:none;border:0;font-size:28px;color:var(--brown)}
+.pd{display:flex;gap:24px;flex-wrap:wrap}.pd svg{width:260px;max-width:100%;height:300px;background:var(--cream)}.pd>div{flex:1;min-width:220px}
+.row{display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--line);padding:10px 0}
+.row svg{width:60px;height:60px;background:var(--cream)}.row .i{flex:1}
+.q button{width:28px;height:28px;border:1px solid var(--gold);background:#fff;color:var(--gold)}
+input,textarea{width:100%;padding:11px;margin:6px 0;border:1px solid var(--line);font-family:inherit;font-size:15px}
+.tot{text-align:right;font-size:22px;margin:16px 0;color:var(--gold)}
+footer{background:var(--cream);text-align:center;padding:26px;color:var(--brown);margin-top:40px}
+@media(max-width:600px){.hero h1{font-size:28px}.nv>span{padding:10px 10px;font-size:13px}.dd{position:fixed;left:10px;right:10px;top:auto}}
+.card img,.row img,.pd img{object-fit:contain;background:#fff}.card img{width:100%;height:190px}.row img{width:60px;height:60px}.pd img{width:260px;max-width:100%;height:300px}</style></head><body>
+<header><div class="top"><div class="logo" onclick="home()">MAISON DORÉE</div><button class="cartbtn" onclick="openCart()">🛍 Количка<b id="cc">0</b></button></div><nav id="nav"></nav></header>
+<div id="app"></div>
+<footer>© Maison Dorée · Демонстрационен магазин · Безплатна доставка над 150 €</footer>
+<div class="ov" id="ov"><div class="box"><button class="x" onclick="closeO()">×</button><div id="ob"></div></div></div>
+<script>
+const MENU={"Парфюми":["Мъжки","Дамски","Унисекс","Луксозни"],"Грим":["Фондьотени","Червила","Сенки"],"Грижа за лице":["Кремове за лице","Серуми","Грижа за тяло"],"Грижа за коса":["Сетове Elseve"],"Педикюр и маникюр":["Гел лакове","Пили за нокти","UV/LED печки"]};
+const D=`Сенки|Dior|5 Couleurs Couture палитра|57|#b88a6a
+Сенки|Chanel|Les 4 Ombres палитра|60|#9c7b6a
+Сенки|Tom Ford|Eye Color Quad|64|#8a6a50
+Грижа за тяло|La Mer|The Body Crème 200мл|214|#8fb3be
+Грижа за тяло|Dior|Miss Dior Body Milk 200мл|69|#e8b4c0
+Грижа за тяло|Chanel|Coco Mademoiselle Масло 100мл|84|#d9b27a
+Пили за нокти|Kiehl|Стъклена кристална пила|23|#bfe3ee
+Пили за нокти|Zwilling|Професионален комплект пили|40|#cfcfcf
+Пили за нокти|Nail Pro|Електрическа фреза за нокти 35000 об.|96|#e8d5c4
+UV/LED печки|Sun Pro|UV/LED печка 48W|127|#e8d5c4
+UV/LED печки|Salon Gold|LED лампа 72W Professional|168|#c9a24b
+UV/LED печки|Luxe Nails|Smart UV печка 96W|234|#d8c3a5
+Гел лакове|Chaun Legend|Gel Polish 15мл – Бордо|34|#e8d5c4|g1
+Гел лакове|Chaun Legend|Gel Polish 15мл – Графит|34|#e8d5c4|g2
+Гел лакове|Chaun Legend|Gel Polish 15мл – Шоколад|34|#e8d5c4|g3
+Гел лакове|Chaun Legend|Gel Polish 15мл – Тъмно кафяво|34|#e8d5c4|g4
+Гел лакове|Chaun Legend|Gel Polish 15мл – Петролено синьо|34|#e8d5c4|g5
+Гел лакове|Chaun Legend|Gel Polish 15мл – Маслина|34|#e8d5c4|g6
+Луксозни|Creed|Aventus 100мл|649|#e8d5c4|l1
+Луксозни|Kilian Paris|Angels' Share 50мл|420|#e8d5c4|l2
+Серуми|Biossance|Squalane + Vitamin C Rose Oil 30мл|95|#e8d5c4|f1
+Серуми|Medicube|PDRN Pink Peptide Serum 30мл|78|#e8d5c4|f2
+Кремове за лице|Origins|Clear Improvement Charcoal Mask 75мл|62|#e8d5c4|f3
+Кремове за лице|Medicube|PDRN Pink Peptide Eye Cream 30мл|69|#e8d5c4|f4
+Дамски|Kayali|Vanilla 28 50мл|195|#e8d5c4|w1
+Дамски|Yves Saint Laurent|Libre Le Parfum 50мл|185|#e8d5c4|w2
+Дамски|Dior|J'adore 100мл|210|#e8d5c4|w3
+Фондьотени|Dior|Forever Skin Glow 30мл|79|#e8d5c4|d1
+Фондьотени|Giorgio Armani|Luminous Silk 30мл|85|#e8d5c4|d2
+Мъжки|Tom Ford|Oud Wood 50мл|520|#e8d5c4|m1
+Мъжки|Tom Ford|Ombre Leather Parfum 100мл|540|#e8d5c4|m2
+Мъжки|Brioni|Intense 100мл|290|#e8d5c4|m3
+Мъжки|Tom Ford|Noir Extreme Parfum 100мл|560|#e8d5c4|m4
+Мъжки|Givenchy|Gentleman Boisée 100мл|245|#e8d5c4|m5
+Унисекс|Diptyque|Philosykos 100мл|230|#e8d5c4|u1
+Унисекс|Maison Margiela|Replica By the Fireplace 100мл|215|#e8d5c4|u2
+Унисекс|Tom Ford|Vanilla Sex 50мл|460|#e8d5c4|u3
+Сетове Elseve|L'Oréal|Elseve Alinhador – сет за изправяне|59|#e8d5c4|h1
+Сетове Elseve|L'Oréal|Elseve Longo dos Sonhos – шампоан, балсам и маска|64|#e8d5c4|h2
+Сетове Elseve|L'Oréal|Elseve Hidra Hialurônico – хидратиращ сет|69|#e8d5c4|h3
+Сетове Elseve|L'Oréal|Elseve Pure Hialurônico – сет с маска|66|#e8d5c4|h4
+Сетове Elseve|L'Oréal|Elseve Micelar + Glycolic – сет против омазняване|72|#e8d5c4|h5
+Сетове Elseve|L'Oréal|Elseve Glycolic Gloss – сет за блясък|74|#e8d5c4|h6
+Сетове Elseve|L'Oréal|Elseve Reparação Total 5 – шампоан, балсам и маска|62|#e8d5c4|h7
+Сетове Elseve|L'Oréal|Elseve Cicatri Renov – термозащитен крем|39|#e8d5c4|h8
+Сетове Elseve|L'Oréal|Elseve Óleo Extraordinário – масло, шампоан и маска|78|#e8d5c4|h9
+Сетове Elseve|L'Oréal|Elseve Supra-Liso – сет за гладка коса|71|#e8d5c4|h10
+Сетове Elseve|L'Oréal|Elseve Hydra Detox – сет с маска|67|#e8d5c4|h11
+Сетове Elseve|L'Oréal|Elseve Black Care – сет с маска и серум|81|#e8d5c4|h12
+Сетове Elseve|L'Oréal|Elseve Color-Vive – сет за боядисана коса|70|#e8d5c4|h13
+Червила|Dior|Addict Lip Glow Oil|86|#e8d5c4|c0
+Червила|Chanel|Rouge Coco Flash|99|#e8d5c4|c1
+Червила|Yves Saint Laurent|Loveshine Lip Oil Stick|94|#e8d5c4|c2
+Червила|Tom Ford|Lip Color Satin Matte|108|#e8d5c4|c3
+Червила|Gucci|Rouge à Lèvres|104|#e8d5c4|c4
+Червила|Charlotte Tilbury|Pillow Talk Lipstick|81|#e8d5c4|c5
+Червила|NARS|Afterglow Lip Shine|58|#e8d5c4|c6
+Червила|Estée Lauder|Pure Color Explicit Lipstick|72|#e8d5c4|c7
+Червила|La Mer|The Lip Volumizer|153|#e8d5c4|c8
+Червила|Hourglass|Phantom Volumizing Glossy Balm|76|#e8d5c4|c9
+Червила|Clé de Peau Beauté|Radiant Lip Gloss|108|#e8d5c4|c10
+Червила|Givenchy|Le Rouge Interdit Satin|81|#e8d5c4|c11
+Червила|Valentino|Spike Valentino Lipstick|90|#e8d5c4|c12
+Червила|Pat McGrath Labs|Lust: Lip Gloss|68|#e8d5c4|c13
+Червила|Bobbi Brown|Crushed Oil-Infused Gloss|65|#e8d5c4|c14
+Червила|Fenty Beauty|Gloss Bomb Universal Luminizer|45|#e8d5c4|cb0
+Червила|Rare Beauty|Stay Vulnerable Glossy Balm|43|#e8d5c4|cb1
+Червила|Dior|Rouge Dior Lipstick|99|#e8d5c4|cb2`.split("\n").map((l,i)=>{const[s,b,n,p,c,m]=l.split("|");return{id:i,s,b,n,p:+p,c,m}});
+const kind=s=>({"Мъжки":"p","Дамски":"p","Унисекс":"p","Луксозни":"p","Фондьотени":"f","Червила":"l","Сенки":"e","Кремове за лице":"j","Серуми":"d","Грижа за тяло":"j","Гел лакове":"n","Пили за нокти":"i","UV/LED печки":"u"}[s]);
+function art(x){if(x.m)return `<img src="images/${x.m}.jpg" alt="${x.n}">`;const c=x.c,k=kind(x.s),g="#c9a24b";let h="";
+if(k=="p")h=`<rect x="75" y="55" width="50" height="14" fill="${g}"/><rect x="88" y="42" width="24" height="14" fill="${g}"/><rect x="50" y="68" width="100" height="100" rx="8" fill="${c}"/><rect x="62" y="80" width="76" height="40" fill="#fff8" rx="3"/>`;
+if(k=="f")h=`<rect x="90" y="30" width="20" height="20" fill="${g}"/><rect x="96" y="48" width="8" height="18" fill="#fff"/><rect x="72" y="65" width="56" height="105" rx="6" fill="${c}"/><rect x="80" y="100" width="40" height="30" fill="#fff8"/>`;
+if(k=="l")h=`<rect x="82" y="110" width="36" height="55" fill="${g}"/><rect x="86" y="55" width="28" height="58" fill="#222"/><path d="M88 55 L112 55 L106 28 L90 34Z" fill="${c}"/>`;
+if(k=="e")h=`<rect x="40" y="60" width="120" height="85" rx="8" fill="${g}"/>${[0,1,2,3].map(i=>`<circle cx="${62+i*25}" cy="${86}" r="10" fill="${c}"/><circle cx="${62+i*25}" cy="${120}" r="10" fill="${i%2?'#e8d5c4':c}" opacity=".8"/>`).join("")}`;
+if(k=="j")h=`<rect x="55" y="70" width="90" height="85" rx="10" fill="${c}"/><rect x="50" y="52" width="100" height="22" rx="5" fill="${g}"/><rect x="70" y="95" width="60" height="30" fill="#fff8"/>`;
+if(k=="d")h=`<rect x="92" y="25" width="16" height="30" fill="#222"/><ellipse cx="100" cy="58" rx="14" ry="8" fill="${g}"/><rect x="72" y="62" width="56" height="100" rx="10" fill="${c}"/><rect x="82" y="100" width="36" height="30" fill="#fff8"/>`;
+if(k=="n")h=`<rect x="88" y="30" width="24" height="70" rx="4" fill="#222"/><rect x="70" y="100" width="60" height="65" rx="10" fill="${c}"/><rect x="85" y="95" width="30" height="10" fill="${g}"/>`;
+if(k=="i")h=`<g transform="rotate(35 100 100)"><rect x="82" y="25" width="36" height="150" rx="18" fill="${c}" stroke="${g}" stroke-width="3"/><path d="M90 45V150M100 45V150M110 45V150" stroke="#fff9" /></g>`;
+if(k=="u")h=`<path d="M40 150 Q40 70 100 70 Q160 70 160 150Z" fill="${c}"/><rect x="35" y="148" width="130" height="16" rx="4" fill="${g}"/><path d="M70 150 Q100 105 130 150Z" fill="#fff8"/><circle cx="100" cy="125" r="8" fill="#a84fd0"/>`;
+return `<svg viewBox="0 0 200 190">${h}</svg>`}
+let cart={},view=null;
+const $=id=>document.getElementById(id),fm=n=>n.toLocaleString("bg-BG")+" €";
+$("nav").innerHTML=Object.entries(MENU).map(([c,s])=>`<div class="nv" onclick="this.classList.toggle('open')"><span>${c} ▾</span><div class="dd">${s.map(x=>`<a onclick="event.stopPropagation();show('${x}','${c}')">${x}</a>`).join("")}</div></div>`).join("");
+function home(){scrollTo(0,0);$("app").innerHTML=`<div class="hero"><h1>Лукс. Красота. Елегантност.</h1><p>Парфюми и козметика от най-престижните марки</p><button class="btn" onclick="show('Мъжки','Парфюми')">Разгледай парфюмите</button></div><main><h2>КАТЕГОРИИ</h2><div class="cats">${Object.entries(MENU).map(([c,s])=>`<div class="cat" onclick="show('${s[0]}','${c}')">${c}</div>`).join("")}</div><h2 style="margin-top:36px">ИЗБРАНО</h2><div class="grid">${D.filter(x=>["l1","w2","d1","m1"].includes(x.m)).map(x=>card(x.id)).join("")}</div></main>`}
+function card(i){const x=D[i];return `<div class="card" onclick="prod(${i})">${art(x)}<div class="br">${x.b}</div><div class="nm">${x.n}</div><div class="pr">${fm(x.p)}</div></div>`}
+function show(s,c){document.querySelectorAll(".nv").forEach(n=>n.classList.remove("open"));scrollTo(0,0);$("app").innerHTML=`<main><h2>${c} › ${s}</h2><div class="grid">${D.filter(x=>x.s==s).map(x=>card(x.id)).join("")}</div></main>`}
+function prod(i){const x=D[i];$("ob").innerHTML=`<div class="pd">${art(x)}<div><div class="br">${x.b}</div><h2 style="border:0;font-size:22px">${x.n}</h2><p>Оригинален продукт от ${x.b}. Лукс, качество и издръжливост за взискателни клиенти.</p><div class="pr" style="font-size:28px;margin:14px 0">${fm(x.p)}</div><button class="btn" onclick="add(${i})">Добави в количката</button></div></div>`;$("ov").classList.add("on")}
+function add(i){cart[i]=(cart[i]||0)+1;upd();openCart()}
+function upd(){$("cc").textContent=Object.values(cart).reduce((a,b)=>a+b,0)}
+function sub(){return Object.entries(cart).reduce((a,[i,q])=>a+D[i].p*q,0)}function disc(){return sub()>150?Math.round(sub()*10)/100:0}function total(){return sub()-disc()}function sumBox(){const s=sub();return `<div class="tot">${disc()?`<div style="font-size:15px;color:var(--dark)">Междинна сума: ${fm(s)}</div><div style="font-size:15px;color:#2e7d4f">Отстъпка 10% (поръчка над 150 €): −${fm(disc())}</div>`:`<div style="font-size:14px;color:var(--brown)">Добавете още ${fm(150.01-s>0?Math.ceil(150.01-s):0)} и получавате 10% отстъпка</div>`}Общо: ${fm(total())}</div>`}
+function qty(i,d){cart[i]+=d;if(cart[i]<1)delete cart[i];upd();openCart()}
+function openCart(){const e=Object.entries(cart);$("ob").innerHTML=`<h2>Вашата количка</h2>`+(e.length?e.map(([i,q])=>{const x=D[i];return `<div class="row">${art(x)}<div class="i"><b>${x.b}</b><br>${x.n}<br>${fm(x.p)}</div><div class="q"><button onclick="qty(${i},-1)">−</button> ${q} <button onclick="qty(${i},1)">+</button></div></div>`}).join("")+`${sumBox()}<button class="btn" onclick="checkout()">Към поръчка</button>`:`<p>Количката е празна.</p>`);$("ov").classList.add("on")}
+function checkout(){$("ob").innerHTML=`<h2>Данни за поръчка</h2><input id="f1" placeholder="Име и фамилия"><input id="f2" placeholder="Телефон"><input id="f3" placeholder="Имейл"><input id="f4" placeholder="Град"><textarea id="f5" rows="2" placeholder="Адрес за доставка"></textarea>${sumBox()}<button class="btn" onclick="done()">Потвърди поръчката</button>`}
+function done(){if(!["f1","f2","f4","f5"].every(f=>$(f).value.trim())){alert("Моля, попълнете всички полета.");return}cart={};upd();$("ob").innerHTML=`<h2>Благодарим Ви!</h2><p>Поръчката е приета. Ще се свържем с Вас за потвърждение.</p><button class="btn" onclick="closeO();home()">Към началото</button>`}
+function closeO(){$("ov").classList.remove("on")}
+$("ov").onclick=e=>{if(e.target.id=="ov")closeO()};
+home();
+</script></body></html>
